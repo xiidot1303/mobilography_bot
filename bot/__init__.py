@@ -1,16 +1,11 @@
 from dataclasses import dataclass
 from typing import Optional
-from telegram.ext import (
-    Application,
-    CallbackContext,
-    CommandHandler,
-    ContextTypes,
-    ExtBot,
-    TypeHandler,
-    PicklePersistence
-)
+from telegram.ext import *
 from telegram import (
-    ReplyKeyboardMarkup
+    ReplyKeyboardMarkup,
+    Update,
+    LabeledPrice,
+
 )
 from bot.resources.strings import Strings
 

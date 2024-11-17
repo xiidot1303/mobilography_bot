@@ -33,6 +33,11 @@ PAYMENT_PROVIDERS = {
     "yoomoney": {
         "name": "ЮKassa",
         "token": os.environ.get("YOOMONEY_TOKEN"),
-        "curreny": "RUB"
-    }
+        "currency": "RUB"
+    },
+    "click": {
+        "name": "Click",
+        "token": os.environ.get("CLICK_TOKEN"),
+        "currency": "UZS"
+    },
 }

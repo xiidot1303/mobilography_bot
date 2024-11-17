@@ -1,3 +1,5 @@
+from app.models import *
 from django.contrib import admin
+from solo.admin import SingletonModelAdmin
 
-# Register your models here.
+admin.site.register(Price, SingletonModelAdmin)
