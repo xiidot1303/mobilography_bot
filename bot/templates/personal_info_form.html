@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Form</title>
+    <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
+    <style>
+        /* General body styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Centered form container */
+        .form-container {
+            width: 90%;
+            max-width: 400px;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        /* Heading style */
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #4a4a4a;
+        }
+
+        /* Input field styling */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #2575fc;
+            box-shadow: 0 0 5px rgba(37, 117, 252, 0.5);
+            outline: none;
+        }
+
+        /* Button styling */
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Response message */
+        p#response {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #2d995b;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Введите ваши данные</h1>
+        <form id="user-form">
+            <div class="form-group">
+                <label for="name">Имя</label>
+                <input type="text" id="name" name="name" placeholder="Введите свое имя" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Номер телефона</label>
+                <input type="tel" id="phone" name="phone" placeholder="Введите номер телефона" required>
+            </div>
+            <button type="submit">Подтвердить</button>
+        </form>
+        <p id="response"></p>
+    </div>
+    <script>
+        const app = window.Telegram.WebApp;
+        app.ready();
+        document.getElementById('user-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+
+            // Prepare the data to send
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('phone', phone);
+
+            // Get user Id from init data of web app
+            const data = app.initDataUnsafe;
+            const userId = data.user.id;
+            formData.append('user_id', userId)
+
+            // Send POST request to the current page URL
+            fetch(window.location.href, {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    throw new Error('Не удалось отправить форму.');
+                }
+            })
+            .then(data => {
+                document.getElementById('response').textContent = 'Форма успешно отправлена!';
+                app.close();
+            })
+            .catch(error => {
+                document.getElementById('response').textContent = `Error: ${error.message}`;
+            });
+        });
+
+    </script>
+</body>
+</html>
