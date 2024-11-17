@@ -58,7 +58,7 @@ payment_providers_keyboard = InlineKeyboardMarkup(
     [
         [InlineKeyboardButton(
             text=PAYMENT_PROVIDERS[provider]["name"],
-            callback_data=provider,
+            callback_data=f"payment_provider--{provider}",
         )]
         for provider in PAYMENT_PROVIDERS
     ]
