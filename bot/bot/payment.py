@@ -1,5 +1,6 @@
 from bot.bot import *
 from app.services.price_service import *
+from config import CHANNEL_JOIN_LINK
 
 
 async def get_payment_provider(update: Update, context: CustomContext):
@@ -10,8 +11,8 @@ async def get_payment_provider(update: Update, context: CustomContext):
     payload = "payload1303"
     currency = PAYMENT_PROVIDERS[provider]["currency"]
     price = await get_price_by_currency(currency)
-    prices = [LabeledPrice("Sample Item", int(price * 100))]
-
+    prices = [LabeledPrice("Подписка на канал", int(price * 100))]
+    
     await context.bot.send_invoice(
         chat_id=context._user_id,
         title=title,
@@ -23,6 +24,8 @@ async def get_payment_provider(update: Update, context: CustomContext):
         start_parameter="payment"
     )
 
+    # remove inline keyboards
+    await bot_edit_message_reply_markup(update, context)
 
 async def precheckout_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     query = update.pre_checkout_query
@@ -35,5 +38,17 @@ async def precheckout_callback(update: Update, context: ContextTypes.DEFAULT_TYP
         await query.answer(ok=True)
 
 
-async def successful_payment(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text("Thank you for your payment! Your order has been processed.")
+async def successful_payment(update: Update, context: CustomContext) -> None:
+    # give access to join channel
+    bot_user: Bot_user = await get_object_by_update(update)
+    bot_user.has_access_to_channel = True
+    await bot_user.asave()
+
+    markup = InlineKeyboardMarkup([[
+        InlineKeyboardButton(
+            text=context.words.join_channel,
+            url=CHANNEL_JOIN_LINK
+        )
+    ]])
+    await update.message.reply_text(context.words.successful_payment, reply_markup=markup)
+

@@ -3,12 +3,22 @@ import json
 import logging
 import traceback
 import html
+from config import CHANNEL_JOIN_LINK
 
 
 async def start(update: Update, context: CustomContext):
     # get or create bot user
     bot_user: Bot_user = await get_or_create(update.effective_user.id)
-    
+    if bot_user.has_access_to_channel:
+        text = context.words.already_joined
+        markup = InlineKeyboardMarkup([[
+            InlineKeyboardButton(
+                text=context.words.open_channel,
+                url=CHANNEL_JOIN_LINK
+            )
+        ]])
+        await update_message_reply_text(update, text, reply_markup=markup)
+        return
     # send first message
     text = Strings.hello
     url=f"{WEBAPP_URL}/view-video"

@@ -13,6 +13,7 @@ class Bot_user(models.Model):
     ]
     lang = models.IntegerField(null=True, blank=True, choices=LANG_CHOICES, default=1, verbose_name='Язык')
     date = models.DateTimeField(db_index=True, null=True, auto_now_add=True, blank=True, verbose_name='Дата регистрации')
+    has_access_to_channel = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         try:

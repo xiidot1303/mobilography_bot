@@ -20,6 +20,7 @@ DB_PASSWORD = os.environ.get("DB_PASSWORD")
 BOT_API_TOKEN = os.environ.get("BOT_API_TOKEN")
 WEBHOOK_URL = os.environ.get("WEBHOOK_URL")
 WEBAPP_URL = os.environ.get("WEBAPP_URL")
+CHANNEL_JOIN_LINK = os.environ.get("CHANNEL_JOIN_LINK")
 
 WEBSITE_URL = os.environ.get("WEBSITE_URL")
 

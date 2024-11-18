@@ -5,12 +5,14 @@ from django.contrib.auth.views import (
     PasswordChangeDoneView, 
     PasswordChangeView
 )
+from django.shortcuts import redirect
 
 from app.views import (
     main
 )
 
 urlpatterns = [
+    path("", lambda request: redirect('/admin/', permanent=True)),
     # login
     path('accounts/login/', LoginView.as_view()),
     path('changepassword/', PasswordChangeView.as_view(
