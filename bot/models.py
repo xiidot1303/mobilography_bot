@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
+from asgiref.sync import sync_to_async
+from datetime import timedelta, datetime
 
 class Bot_user(models.Model):
     user_id = models.BigIntegerField(null=True)
@@ -42,3 +44,21 @@ class Message(models.Model):
     class Meta:
         verbose_name = "Сообщение"
         verbose_name_plural = "Сообщения"
+
+class Alert(models.Model):
+    bot_user = models.ForeignKey(Bot_user, blank=False, on_delete=models.CASCADE)
+    text = models.TextField(blank=False, max_length=2048)
+    button_text = models.CharField(max_length=64)
+    url = models.CharField(max_length=255)
+    when = models.BigIntegerField(null=True)
+    datetime = models.DateTimeField(null=True, blank=True)
+
+    def save(self, *args, **kwargs) -> None:
+        now = datetime.now()
+        self.datetime = now + timedelta(seconds=self.when)
+        return super().save(*args, **kwargs)
+
+    @property
+    @sync_to_async
+    def is_active(self):
+        return not self.bot_user.has_access_to_channel

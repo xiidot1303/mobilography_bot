@@ -3,6 +3,8 @@ from typing import Optional
 from telegram.ext import *
 from telegram import (
     ReplyKeyboardMarkup,
+    InlineKeyboardMarkup,
+    InlineKeyboardButton,
     Update,
     LabeledPrice,
 
@@ -17,7 +19,7 @@ class NewsletterUpdate:
     photo: Optional[object | str] = None
     video: Optional[object | str] = None
     document: Optional[object] = None
-    reply_markup: Optional[ReplyKeyboardMarkup] = None
+    reply_markup: Optional[ReplyKeyboardMarkup | InlineKeyboardMarkup] = None
     pin_message: bool = False
 
 

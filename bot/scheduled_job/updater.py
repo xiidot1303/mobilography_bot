@@ -12,3 +12,6 @@ class jobs:
         async_to_sync(mailing.send_message), 
         'interval', minutes=5)
     scheduler.add_job(save_langs_to_redis, 'interval', minutes=20)
+    scheduler.add_job(
+        async_to_sync(mailing.send_alerts),
+        'interval', minutes=7)

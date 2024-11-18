@@ -1,17 +1,38 @@
+import asyncio
+import aiofiles
+import types
 
 
 class Strings:
-    def __init__(self, user_id) -> None:
+    def __init__(self, user_id, first_name=None) -> None:
         self.user_id = user_id
+        self.first_name = first_name
 
     def __getattribute__(self, key: str):
-        from bot.services.redis_service import get_user_lang
-        user_id = object.__getattribute__(self, "user_id")
-        user_lang_code = get_user_lang(user_id)
         if result := object.__getattribute__(self, key):
-            return result[user_lang_code]
+            if isinstance(result, list):
+                from bot.services.redis_service import get_user_lang
+                user_id = object.__getattribute__(self, "user_id")
+                user_lang_code = get_user_lang(user_id)
+                return result[user_lang_code]
+            else:
+                return result
         else:
             return key
+
+    async def read_file(self, file_name):
+        file_path = f"bot/resources/string_files/{file_name}"
+        async with aiofiles.open(file_path, mode='r') as file:
+            content = await file.read()
+        return content
+
+    async def message_after_hour(self, hour):
+        file_name = f"message_after_{hour}_hour"
+        text = await self.read_file(file_name)
+        text = text.format(
+            first_name = self.first_name
+        )
+        return text
 
     hello = "Авторский секрет мобильной съемки и монтажа по технологии из США\n\n" \
         "Это единственный известный мне способ зарабатывать неприлично большие деньги " \
@@ -80,7 +101,9 @@ class Strings:
 
     successful_payment = [
         "",
-        "Спасибо за оплату! Вы можете присоединиться к нашему каналу"
+        "Спасибо за покупку! Я очень ценю, что ты решил инвестировать в свои знания :)\n\n"
+        "Материалы будут доступны в закрытом телеграм канала:\n"
+        "вот ссылка 👇"
     ]
 
     join_channel = [
@@ -103,24 +126,24 @@ class Strings:
         "Открыть"
     ]
 
-    _ = [
+    view_programm = [
         "",
-        ""
+        "ПОСМОТРЕТЬ ПРОГРАММУ"
     ]
 
-    _ = [
+    view_offer = [
         "",
-        ""
+        "СМОТРЕТЬ ОФФЕР"
     ]
 
-    _ = [
+    here = [
         "",
-        ""
+        "СЮДЫ"
     ]
 
-    _ = [
+    link_to_offer = [
         "",
-        ""
+        "ССЫЛКА НА ОФФЕР"
     ]
 
     _ = [

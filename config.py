@@ -23,6 +23,7 @@ WEBAPP_URL = os.environ.get("WEBAPP_URL")
 CHANNEL_JOIN_LINK = os.environ.get("CHANNEL_JOIN_LINK")
 
 WEBSITE_URL = os.environ.get("WEBSITE_URL")
+OFFER_URL = os.environ.get("OFFER_URL")
 
 
 PAYMENT_PROVIDERS = {

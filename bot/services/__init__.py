@@ -23,8 +23,12 @@ async def check_username(update):
         user.firstname = update.message.chat.first_name
         await user.asave()
 
-async def get_or_create(user_id):
-    obj, created = await Bot_user.objects.aget_or_create(user_id=user_id)
+async def get_or_create(user_id, firstname):
+    obj, created = await Bot_user.objects.aget_or_create(
+        user_id=user_id, defaults={
+            "firstname": firstname
+        }
+    )
     return obj
     
     
