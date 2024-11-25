@@ -42,4 +42,9 @@ PAYMENT_PROVIDERS = {
         "token": os.environ.get("CLICK_TOKEN"),
         "currency": "UZS"
     },
+    "stars": {
+        "name": "Telegram stars",
+        "token": "",
+        "currency": "XTR"
+    }
 }
