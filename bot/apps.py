@@ -9,7 +9,8 @@ class bot(AppConfig):
         import bot.signals
         # save bot user lang codes to redis
         from bot.services.redis_service import save_langs_to_redis
-        save_langs_to_redis()
+        try: save_langs_to_redis()
+        except: None
         # run_once = os.environ.get('CMDLINERUNNER_RUN_ONCE_BOT')
         # if run_once is not None:
         #     return
