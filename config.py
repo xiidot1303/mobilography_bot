@@ -25,6 +25,11 @@ CHANNEL_JOIN_LINK = os.environ.get("CHANNEL_JOIN_LINK")
 WEBSITE_URL = os.environ.get("WEBSITE_URL")
 OFFER_URL = os.environ.get("OFFER_URL")
 
+# Cryptocloud
+CRYPTOCLOUD_API_KEY = os.environ.get("CRYPTOCLOUD_API_KEY")
+CRYPTOCLOUD_SHOP_ID = os.environ.get("CRYPTOCLOUD_SHOP_ID")
+CRYPTOCLOUD_SECRET_KEY = os.environ.get("CRYPTOCLOUD_SECRET_KEY")
+
 
 PAYMENT_PROVIDERS = {
     "global": {
@@ -46,5 +51,9 @@ PAYMENT_PROVIDERS = {
         "name": "Telegram stars",
         "token": "",
         "currency": "XTR"
+    },
+    "cryptocloud": {
+        "name": "CryptoCloud",
+        "currency": "USD"
     }
 }
