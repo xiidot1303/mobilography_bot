@@ -74,4 +74,5 @@ async def successful_payment(update: Update, context: CustomContext) -> None:
             url=CHANNEL_JOIN_LINK
         )
     ]])
-    await context.bot.send_message(update.effective_user.id, context.words.successful_payment, reply_markup=markup)
+    await context.bot.send_message(update.effective_user.id, context.words.successful_payment,
+                                   reply_markup=markup, parse_mode=ParseMode.HTML)

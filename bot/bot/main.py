@@ -25,7 +25,7 @@ async def start(update: Update, context: CustomContext):
     url = f"{WEBAPP_URL}/view-video"
     i_button = InlineKeyboardButton(text=context.words.view_video, url=url)
     markup = InlineKeyboardMarkup([[i_button]])
-    await context.bot.send_message(update.message.chat_id, text, reply_markup=markup)
+    await context.bot.send_message(update.message.chat_id, text, reply_markup=markup, parse_mode=ParseMode.HTML)
     # create alert object to send alert if not shown video yet
     strings = Strings(user_id=context._user_id, first_name=update.effective_user.first_name)
 
