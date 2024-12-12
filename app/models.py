@@ -9,6 +9,10 @@ class Price(models.Model):
     USD = models.FloatField(null=True, blank=False, verbose_name="USD")
     XTR = models.FloatField(null=True, blank=False, verbose_name="XTR")
 
+    class Meta:
+        verbose_name = "Цена"
+        verbose_name_plural = "Цены"
+
 
 class Payment(models.Model):
     bot_user = models.ForeignKey(
@@ -28,3 +32,7 @@ class Payment(models.Model):
     @sync_to_async
     def get_bot_user(self):
         return self.bot_user
+
+    class Meta:
+        verbose_name = "Оплата"
+        verbose_name_plural = "Платежи"
