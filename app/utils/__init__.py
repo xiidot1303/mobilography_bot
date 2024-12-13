@@ -1,6 +1,7 @@
 from datetime import datetime, date, timedelta
 import requests
 import json
+from asgiref.sync import async_to_sync, sync_to_async
 
 async def get_user_ip(request):
     x_forwarded_for = await request.META.get('HTTP_X_FORWARDED_FOR')
@@ -28,7 +29,7 @@ async def send_request(url, data=None, headers=None, type='get'):
         content = json.loads(response.content)
         headers = response.headers
     else:
-        response = requests.post(url, json=data, headers=headers)
+        response = await sync_to_async(requests.post)(url, json=data, headers=headers)
         content = json.loads(response.content)
         headers = response.headers
 
