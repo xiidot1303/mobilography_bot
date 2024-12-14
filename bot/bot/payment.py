@@ -45,7 +45,9 @@ async def get_payment_provider(update: Update, context: CustomContext):
             provider_token=PAYMENT_PROVIDERS[provider]["token"],
             currency=currency,
             prices=prices,
-            start_parameter="payment"
+            start_parameter="payment",
+            need_email=True if provider == 'yoomoney' else None,
+            send_email_to_provider=True if provider == 'yoomoney' else None,
         )
 
     # remove inline keyboards
