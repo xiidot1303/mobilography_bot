@@ -37,6 +37,20 @@ async def get_payment_provider(update: Update, context: CustomContext):
         price = price
         prices = [LabeledPrice("Подписка на канал", int(price * 100))]
 
+        PROVIDER_DATA_WO_EMAIL = {
+            "receipt": {
+                "items": [{
+                    "description": "Секретная Технология из США (Отабек Одилов)",
+                    "quantity": "1.00",
+                    "amount": {
+                        "value": price,
+                        "currency": "RUB"
+                    },
+                    "vat_code": 1
+                }]
+            }
+        }
+
         await context.bot.send_invoice(
             chat_id=context._user_id,
             title=title,
@@ -46,6 +60,9 @@ async def get_payment_provider(update: Update, context: CustomContext):
             currency=currency,
             prices=prices,
             start_parameter="payment",
+
+            # yoomoney
+            provider_data=PROVIDER_DATA_WO_EMAIL if provider == 'yoomoney' else None,
             need_email=True if provider == 'yoomoney' else None,
             send_email_to_provider=True if provider == 'yoomoney' else None,
         )
