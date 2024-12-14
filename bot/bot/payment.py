@@ -50,7 +50,6 @@ async def get_payment_provider(update: Update, context: CustomContext):
                     "payment_mode" : "full_payment",
                     "payment_subject" : "commodity"
                 }],
-                "tax_system_code" : 1
             }
         }
 
