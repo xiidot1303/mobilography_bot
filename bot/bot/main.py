@@ -68,9 +68,8 @@ async def start(update: Update, context: CustomContext):
 
     ]
     for alert in alerts:
-        data = alert
-        data['url'] = OFFER_URL
-        await Alert.objects.aget_or_create(bot_user=bot_user, defaults=data)
+        if await Alert.objects.filter(bot_user=bot_user).aexists():
+            await Alert.objects.create(bot_user=bot_user, url=OFFER_URL, **alert)
 
 
 async def test_job(context: CustomContext):
