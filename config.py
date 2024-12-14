@@ -43,7 +43,7 @@ PAYMENT_PROVIDERS = {
         "currency": "RUB"
     },
     "click": {
-        "name": "Click",
+        "name": "Uzcard / Humo",
         "token": os.environ.get("CLICK_TOKEN"),
         "currency": "UZS"
     },
@@ -53,7 +53,7 @@ PAYMENT_PROVIDERS = {
         "currency": "XTR"
     },
     "cryptocloud": {
-        "name": "CryptoCloud",
+        "name": "Криптовалюта",
         "currency": "USD"
     }
 }
