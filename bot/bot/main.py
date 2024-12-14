@@ -68,7 +68,7 @@ async def start(update: Update, context: CustomContext):
 
     ]
     for alert in alerts:
-        if await Alert.objects.filter(bot_user=bot_user).aexists():
+        if not await Alert.objects.filter(bot_user=bot_user).aexists():
             await Alert.objects.acreate(bot_user=bot_user, url=OFFER_URL, **alert)
 
 
