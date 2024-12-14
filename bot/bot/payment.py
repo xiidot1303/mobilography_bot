@@ -41,13 +41,16 @@ async def get_payment_provider(update: Update, context: CustomContext):
             "receipt": {
                 "items": [{
                     "description": "Секретная Технология из США (Отабек Одилов)",
-                    "quantity": "1.00",
+                    "quantity": 1,
                     "amount": {
                         "value": price,
                         "currency": "RUB"
                     },
-                    "vat_code": 1
-                }]
+                    "vat_code": 1,
+                    "payment_mode" : "full_payment",
+                    "payment_subject" : "commodity"
+                }],
+                "tax_system_code" : 1
             }
         }
 
