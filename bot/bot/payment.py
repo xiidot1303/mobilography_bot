@@ -7,7 +7,19 @@ from payment.services.cryptocloud_service import *
 
 async def get_payment_provider(update: Update, context: CustomContext):
     _, provider = update.callback_query.data.split("--")
+    if provider == "global":
+        text = """Из-за санкций в РФ платежные системы не принимают оплаты через Visa / Mastercard 
+        
+В связи с этим мы вынуждены принимать оплаты на визу карту: 
 
+4998930007821600
+Odilov Otabek
+
+после оплаты отправьте чек в этот @gafur_mh тг и вам отправят доступ"""
+        await bot_edit_message_reply_markup(update, context)
+        await context.bot.send_message(update.effective_user.id, text)
+        return
+        
     # get price and currency by provider
     currency = PAYMENT_PROVIDERS[provider]["currency"]
     price = await get_price_by_currency(currency)

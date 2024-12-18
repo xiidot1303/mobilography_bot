@@ -32,11 +32,11 @@ CRYPTOCLOUD_SECRET_KEY = os.environ.get("CRYPTOCLOUD_SECRET_KEY")
 
 
 PAYMENT_PROVIDERS = {
-    #"global": {
-    #    "name": "Visa/Mastercard",
-    #    "token": os.environ.get("GLOBAL_PAYMENT_TOKEN"),
-    #    "currency": "UZS"
-    #},
+    "global": {
+       "name": "Visa/Mastercard",
+       "token": os.environ.get("GLOBAL_PAYMENT_TOKEN"),
+       "currency": "UZS"
+    },
     "yoomoney": {
         "name": "ЮKassa",
         "token": os.environ.get("YOOMONEY_TOKEN"),
