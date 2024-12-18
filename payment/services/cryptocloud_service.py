@@ -1,6 +1,7 @@
 import requests
 from typing import Dict, List, Any
 from config import CRYPTOCLOUD_API_KEY as api_key, CRYPTOCLOUD_SHOP_ID as shop_id
+from asgiref.sync import sync_to_async
 
 
 class Currencies:
@@ -28,7 +29,7 @@ class CryptoCloudSDK:
         """
         headers = {"Authorization": f"Token {self.api_key}"}
         url = self.base_url + endpoint
-        response = requests.request(method, url, headers=headers, json=payload)
+        response = await sync_to_async(requests.request)(method, url, headers=headers, json=payload)
         return response.json()
 
     async def create_invoice(self, order_id, amount) -> Dict[str, Any]:
