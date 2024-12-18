@@ -48,7 +48,7 @@ PAYMENT_PROVIDERS = {
         "currency": "UZS"
     },
     "stars": {
-        "name": "Telegram stars",
+        "name": "Visa / Mastercard / Stars",
         "token": "",
         "currency": "XTR"
     },
