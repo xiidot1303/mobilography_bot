@@ -38,7 +38,7 @@ PAYMENT_PROVIDERS = {
        "currency": "UZS"
     },
     "yoomoney": {
-        "name": "ЮKassa",
+        "name": "ЮКасса / Мир",
         "token": os.environ.get("YOOMONEY_TOKEN"),
         "currency": "RUB"
     },
