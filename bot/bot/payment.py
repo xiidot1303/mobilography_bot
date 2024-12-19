@@ -25,7 +25,7 @@ Odilov Otabek
         await bot_edit_message_reply_markup(update, context, reply_markup=new_markup)
         await context.bot.send_message(update.effective_user.id, text)
         return
-        
+
     # get price and currency by provider
     currency = PAYMENT_PROVIDERS[provider]["currency"]
     price = await get_price_by_currency(currency)
@@ -65,8 +65,8 @@ Odilov Otabek
                         "currency": "RUB"
                     },
                     "vat_code": 1,
-                    "payment_mode" : "full_payment",
-                    "payment_subject" : "commodity"
+                    "payment_mode": "full_payment",
+                    "payment_subject": "commodity"
                 }],
             }
         }
@@ -92,12 +92,14 @@ Odilov Otabek
 
 
 async def change_payment_method(update: Update, context: CustomContext):
-    await bot_edit_message_reply_markup(update, context)
+    try:
+        await bot_edit_message_reply_markup(update, context)
+    except:
+        None
 
     text = context.words.choose_payment_method
     markup = payment_providers_keyboard
     await update_message_reply_text(update, text, markup)
-
 
 
 async def precheckout_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:

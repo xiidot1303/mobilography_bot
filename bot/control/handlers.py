@@ -21,6 +21,7 @@ handlers = [
     CallbackQueryHandler(payment.get_payment_provider,
                          pattern=".*payment_provider.*"),
     CallbackQueryHandler(payment.change_payment_method, pattern="change_payment_method"),
+    CommandHandler('back', payment.change_payment_method),
     PreCheckoutQueryHandler(payment.precheckout_callback),
     successfully_payment_handler,
     channel_join_request_handler,
