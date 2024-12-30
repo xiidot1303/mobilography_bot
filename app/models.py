@@ -9,6 +9,7 @@ class Price(models.Model):
     RUB = models.FloatField(null=True, blank=False, verbose_name="Рубль")
     USD = models.FloatField(null=True, blank=False, verbose_name="USD")
     XTR = models.FloatField(null=True, blank=False, verbose_name="XTR")
+    channel_join_link = models.CharField(null=True, max_length=255, verbose_name="Ссылка на присоединение к каналу")
 
     def __str__(self) -> str:
         return self.tariff

@@ -5,6 +5,7 @@ import traceback
 import html
 from config import *
 from bot.models import Alert
+from app.services.price_service import get_price_by_id, Price
 
 
 async def start(update: Update, context: CustomContext):
@@ -12,10 +13,11 @@ async def start(update: Update, context: CustomContext):
     bot_user: Bot_user = await get_or_create(update.effective_user.id, update.effective_user.first_name)
     if bot_user.has_access_to_channel:
         text = context.words.already_joined
+        tariff: Price = await get_price_by_id(bot_user.price_id)
         markup = InlineKeyboardMarkup([[
             InlineKeyboardButton(
                 text=context.words.open_channel,
-                url=CHANNEL_JOIN_LINK
+                url=tariff.channel_join_link if tariff else CHANNEL_JOIN_LINK
             )
         ]])
         await update_message_reply_text(update, text, reply_markup=markup)

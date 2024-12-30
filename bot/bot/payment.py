@@ -1,7 +1,7 @@
 from bot.bot import *
 from app.services.price_service import *
-from config import CHANNEL_JOIN_LINK
 from app.services.payment_service import *
+from app.services.price_service import *
 from payment.services.cryptocloud_service import *
 
 
@@ -118,10 +118,11 @@ async def successful_payment(update: Update, context: CustomContext) -> None:
     bot_user.has_access_to_channel = True
     await bot_user.asave()
 
+    price: Price = await get_price_by_id(bot_user.price_id)
     markup = InlineKeyboardMarkup([[
         InlineKeyboardButton(
             text=context.words.join_channel,
-            url=CHANNEL_JOIN_LINK
+            url=price.channel_join_link
         )
     ]])
     await context.bot.send_message(update.effective_user.id, context.words.successful_payment,

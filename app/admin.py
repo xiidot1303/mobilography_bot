@@ -14,10 +14,9 @@ class PaymentAdmin(admin.ModelAdmin):
 
 @admin.register(Price)
 class PriceAdmin(admin.ModelAdmin):
-    list_display = ('id', 'tariff', 'UZS', 'RUB', 'USD', 'XTR')
+    list_display = ('id', 'tariff', 'UZS', 'RUB', 'USD', 'XTR', 'channel_join_link')
     list_display_links = None
     list_filter = ('tariff',)
     search_fields = ('tariff',)
-    fields = ('tariff', 'UZS', 'RUB', 'USD', 'XTR')
     ordering = ('tariff',)
-    list_editable = ('tariff', 'UZS', 'RUB', 'USD', 'XTR')
+    list_editable = ('tariff', 'UZS', 'RUB', 'USD', 'XTR', 'channel_join_link')
