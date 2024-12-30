@@ -20,7 +20,7 @@ async def get_payment_provider(update: Update, context: CustomContext):
 4998930007821600
 Odilov Otabek
 
-после оплаты отправьте чек в этот @gafur_mh тг и вам отправят доступ"""
+после оплаты отправьте чек в этот @konkretno_production тг и вам отправят доступ"""
 
         await bot_edit_message_reply_markup(update, context, reply_markup=new_markup)
         await context.bot.send_message(update.effective_user.id, text)
