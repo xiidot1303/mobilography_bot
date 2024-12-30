@@ -26,13 +26,13 @@ Odilov Otabek
         await context.bot.send_message(update.effective_user.id, text)
         return
 
+    bot_user: Bot_user = await get_object_by_update(update)
     # get price and currency by provider
     currency = PAYMENT_PROVIDERS[provider]["currency"]
-    price = await get_price_by_currency(currency)
+    price = await get_price_by_id_and_currency(bot_user.price_id, currency)
 
     # create payment
-    bot_user: Bot_user = await get_object_by_update(update)
-    payment: Payment = await create_payment(bot_user, price, currency, provider)
+    payment: Payment = await create_payment(bot_user, price, currency, provider, bot_user.price_id)
 
     if provider == 'cryptocloud':
         crypto_cloud_sdk = CryptoCloudSDK()

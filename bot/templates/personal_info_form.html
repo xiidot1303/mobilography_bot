@@ -123,6 +123,7 @@
             const formData = new FormData();
             formData.append('name', name);
             formData.append('phone', phone);
+            formData.append('price_id', {{ price_id }});
 
             // Get user Id from init data of web app
             const data = app.initDataUnsafe;

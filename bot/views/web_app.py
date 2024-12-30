@@ -14,14 +14,21 @@ async def view_video(request: HttpRequest):
 @method_decorator(csrf_exempt, name='dispatch')
 class PersonalInfoForm(View):
     async def post(self, request: HttpRequest, *agrs, **kwargs):
-        name, phone, user_id = request.POST["name"], request.POST["phone"], request.POST["user_id"]
+        name, phone, user_id, price_id = (
+            request.POST["name"], request.POST["phone"], 
+            request.POST["user_id"], request.POST["price_id"]
+            )
         bot_user: Bot_user = await get_object_by_user_id(user_id)
         # update bot user details
-        bot_user.name, bot_user.phone = name, phone
+        bot_user.name, bot_user.phone, bot_user.price_id = name, phone, price_id
         await bot_user.asave()
         # send payment invoice
         await send_payment_providers(application, user_id)
         return HttpResponse()
 
     async def get(self, request: HttpRequest, *agrs, **kwargs):
-        return render(request, "personal_info_form.html")
+        price_id = request.GET.get('tgWebAppStartParam', None)
+        context = {
+            'price_id': price_id
+        }
+        return render(request, "personal_info_form.html", context=context)

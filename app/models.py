@@ -4,10 +4,14 @@ from asgiref.sync import sync_to_async
 
 
 class Price(models.Model):
+    tariff = models.CharField(null=True, max_length=255, verbose_name='Тариф')
     UZS = models.FloatField(null=True, blank=False, verbose_name="So'm")
     RUB = models.FloatField(null=True, blank=False, verbose_name="Рубль")
     USD = models.FloatField(null=True, blank=False, verbose_name="USD")
     XTR = models.FloatField(null=True, blank=False, verbose_name="XTR")
+
+    def __str__(self) -> str:
+        return self.tariff
 
     class Meta:
         verbose_name = "Цена"
@@ -27,6 +31,7 @@ class Payment(models.Model):
     payment_system = models.CharField(
         null=True, blank=True, max_length=32, verbose_name="Платежная система"
     )
+    tariff = models.ForeignKey(Price, null=True, on_delete=models.PROTECT)
 
     @property
     @sync_to_async

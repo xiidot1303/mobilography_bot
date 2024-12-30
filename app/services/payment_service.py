@@ -1,12 +1,14 @@
 from app.services import *
 from bot.models import Bot_user
-from app.models import Payment
+from app.models import Payment, Price
 
 
-async def create_payment(bot_user: Bot_user, amount, currency, payment_system):
+async def create_payment(bot_user: Bot_user, amount, currency, payment_system, price_id):
+    price: Price = await Price.objects.aget(pk=price_id)
     obj = await Payment.objects.acreate(
         bot_user=bot_user, amount=amount, 
-        currency=currency, payment_system=payment_system
+        currency=currency, payment_system=payment_system,
+        tariff = price
     )
     return obj
 
